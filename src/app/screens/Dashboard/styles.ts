@@ -67,3 +67,16 @@ export const HighLightCards = styled.ScrollView.attrs({
 
   margin-top: ${RFPercentage(20)}px;
 `
+
+export const Transactions = styled.View`
+  flex: 1;
+  padding: 0 24px;
+
+  margin-top: ${RFPercentage(10)}px;
+`
+export const Title = styled.Text`
+  font-size: ${RFValue(18)}px;
+  font-family: ${({ theme }) => theme.fonts.regular};
+
+  margin-bottom: ${RFValue(16)}px;
+`

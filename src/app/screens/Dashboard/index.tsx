@@ -10,10 +10,14 @@ import {
   UserGreeting,
   UserName,
   Icon,
-  HighLightCards
+  HighLightCards,
+
+  Transactions,
+  Title
 } from './styles'
 
 import { HighLightCard } from '../../components/HighLightCard'
+import { TransactionCard } from '../../components/TransactionCard'
 
 export function Dashboard() {
   return (
@@ -34,6 +38,7 @@ export function Dashboard() {
 
         </UserWrapper>
       </Header>
+
       <HighLightCards>
         <HighLightCard
           type="up"
@@ -54,6 +59,12 @@ export function Dashboard() {
           lastTransaction="Total em 30 de Setembro"
         />
       </HighLightCards>
+
+      <Transactions>
+        <Title>Listagens</Title>
+        <TransactionCard />
+      </Transactions>
+
     </Container>
   )
 }
