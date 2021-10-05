@@ -8,6 +8,7 @@ export const Container = styled.View`
   border-radius: ${RFValue(5)}px;
 
   padding: 17px 24px;
+  margin-bottom: 16px;
 `
 export const Title = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
