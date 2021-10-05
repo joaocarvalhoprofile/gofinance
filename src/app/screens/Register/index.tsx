@@ -1,10 +1,12 @@
 import React from 'react'
+
 import { Input } from '../../components/Input'
 
 import {
   Container,
   Header,
-  Title
+  Title,
+  Form
 } from './styles'
 
 export function Register() {
@@ -14,7 +16,15 @@ export function Register() {
         <Title>Cadastro</Title>
       </Header>
 
-      <Input placeholder="Descrição" />
+      <Form>
+        <Input
+          placeholder="Descrição"
+        />
+
+        <Input
+          placeholder="Preço"
+        />
+      </Form>
 
     </Container>
   )
