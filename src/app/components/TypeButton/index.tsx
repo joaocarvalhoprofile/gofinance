@@ -3,18 +3,30 @@ import { TouchableOpacityProps } from 'react-native'
 
 import {
   Container,
+  Icon,
   Title
 } from './styles'
 
-interface Props extends TouchableOpacityProps {
-  title: string
-  type: 'up' | 'down'
+const Icons = {
+  up: 'arrow-up-circle',
+  down: 'arrow-down-circle'
 }
 
-export function TypeButton({ title, ...rest }: Props) {
+interface Props extends TouchableOpacityProps {
+  type: 'up' | 'down'
+  title: string
+  isActive: boolean
+}
+
+export function TypeButton({ type, title, isActive, ...rest }: Props) {
   return (
-    <Container {...rest}>
+    <Container
+      type={type}
+      isActive={isActive}
+      {...rest}
+    >
+      <Icon name={Icons[type]} type={type} />
       <Title>{title}</Title>
-    </Container>
+    </Container >
   )
 }

@@ -28,8 +28,9 @@ export const Form = styled.View`
 `
 export const Fields = styled.View`
 `
-export const OperationType = styled.View`
+export const TransactionTypes = styled.View`
   flex-direction: row;
-  align-items:center;
-  justify-content: space-around;
+  justify-content: space-between;
+
+  margin-top: 8px;
 `
