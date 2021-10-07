@@ -11,7 +11,8 @@ import {
 
 import theme from './src/core/styles/theme'
 // import { Dashboard } from './src/app/screens/Dashboard'
-import { Register } from './src/app/screens/Register'
+// import { Register } from './src/app/screens/Register'
+import { CategoryList } from './src/app/features/CategoryList'
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -26,7 +27,7 @@ export default function App() {
 
   return (
     <ThemeProvider theme={theme}>
-      <Register />
+      <CategoryList />
     </ThemeProvider>
   );
 }
