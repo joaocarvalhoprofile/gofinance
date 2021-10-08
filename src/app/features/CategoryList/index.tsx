@@ -15,7 +15,7 @@ import {
 } from './styles'
 
 interface Category {
-  id: string
+  key: string
   name: string
 }
 
@@ -30,6 +30,11 @@ export function CategoryList({
   setCategory,
   closeSelectCategory
 }: CategoryListProps) {
+
+  function handleCategorySelect(category: Category) {
+    setCategory(category)
+  }
+
   return (
     <Container>
       <Header>
@@ -42,7 +47,10 @@ export function CategoryList({
         keyExtractor={(item) => item.key}
 
         renderItem={({ item }) => (
-          <Category>
+          <Category
+            onPress={() => handleCategorySelect(item)}
+            isActive={category.key === item.key}
+          >
             <Icon name={item.icon} />
             <Name> {item.name} </Name>
           </Category>
