@@ -20,7 +20,7 @@ interface Category {
 }
 
 interface CategoryListProps {
-  category: string,
+  category: Category,
   setCategory: (category: Category) => void
   closeSelectCategory: () => void
 }
@@ -51,7 +51,10 @@ export function CategoryList({
       />
 
       <Footer>
-        <Button title="Selecionar" />
+        <Button
+          title="Selecionar"
+          onPress={closeSelectCategory}
+        />
       </Footer>
 
     </Container >
