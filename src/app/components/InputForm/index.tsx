@@ -8,13 +8,13 @@ import {
 
 import { Input } from '../Input'
 
+import { Container, Error } from './styles'
+
 interface Props extends TextInputProps {
   control: Control
   name: string
   error: string
 }
-
-import { Container, Error } from './styles'
 
 export function InputForm({
   control,
