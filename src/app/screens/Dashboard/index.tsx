@@ -3,6 +3,7 @@ import React from 'react'
 import {
   Container,
   Header,
+  LogoutButton,
   UserWrapper,
   UserInfo,
   Photo,
@@ -78,7 +79,10 @@ export function Dashboard() {
               <UserName>João</UserName>
             </User>
           </UserInfo>
-          <Icon name="power" />
+
+          <LogoutButton onPress={() => { }}>
+            <Icon name="power" />
+          </LogoutButton>
 
         </UserWrapper>
       </Header>

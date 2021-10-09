@@ -2,14 +2,14 @@ import styled, { css } from 'styled-components/native'
 
 import { RFValue } from 'react-native-responsive-fontsize'
 import { Feather } from '@expo/vector-icons'
-import { TouchableOpacity } from 'react-native'
+import { RectButton } from 'react-native-gesture-handler'
 
 interface TypeButtonProps {
   type: 'up' | 'down'
   isActive: boolean
 }
 
-export const Container = styled(TouchableOpacity) <TypeButtonProps>`
+export const Container = styled(RectButton) <TypeButtonProps>`
   width: 48%;
 
   flex-direction: row;
