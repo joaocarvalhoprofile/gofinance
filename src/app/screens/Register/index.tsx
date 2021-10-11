@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import {
   Keyboard,
   Modal,
@@ -6,7 +6,7 @@ import {
   Alert
 } from 'react-native'
 
-import { } from '@react-native-async-storage/async-storage'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from "yup"
@@ -56,6 +56,8 @@ export function Register() {
     resolver: yupResolver(schema)
   })
 
+  const dataKey = '@gofinance:transactions'
+
   function handleTransactionTypeSelect(type: 'up' | 'down') {
     SetTransactionType(type)
   }
@@ -67,7 +69,7 @@ export function Register() {
     setCategoryModalShow(false)
   }
 
-  function handleRegister(form: FormData) {
+  async function handleRegister(form: FormData) {
     if (!TransactionType) {
       return Alert.alert("Selecione um tipo de operação")
     }
@@ -82,12 +84,22 @@ export function Register() {
       category: category.key
     }
     try {
+      await AsyncStorage.setItem(dataKey, JSON.stringify(data))
 
     } catch (error) {
       console.log(error)
       Alert.alert("Não foi possível salvar")
     }
   }
+
+  useEffect(() => {
+    async function getTransaction() {
+      const data = await AsyncStorage.getItem(dataKey)
+      console.log(JSON.parse(data!))
+    }
+
+    getTransaction()
+  }, [])
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
