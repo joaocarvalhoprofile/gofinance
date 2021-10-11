@@ -6,6 +6,7 @@ import {
   Alert
 } from 'react-native'
 
+import { } from '@react-native-async-storage/async-storage'
 import { useForm } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as Yup from "yup"
@@ -80,7 +81,12 @@ export function Register() {
       TransactionType,
       category: category.key
     }
-    console.log(data)
+    try {
+
+    } catch (error) {
+      console.log(error)
+      Alert.alert("Não foi possível salvar")
+    }
   }
 
   return (

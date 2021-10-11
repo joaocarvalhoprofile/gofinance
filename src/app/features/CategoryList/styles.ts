@@ -14,7 +14,7 @@ export const Container = styled(GestureHandlerRootView)`
 `
 export const Header = styled.View`
   width: 100%;
-  height: ${RFValue(113)};
+  height: ${RFValue(113)}px;
 
   align-items: center;
   justify-content: flex-end;
@@ -42,7 +42,7 @@ export const Category = styled.TouchableOpacity<CategoryProps>`
 `
 export const Icon = styled(Feather)`
   font-size: ${RFValue(20)}px;
-  margin-right: 16px;
+  margin-right: ${RFValue(16)}px;
 `
 export const Name = styled.Text`
   font-family: ${({ theme }) => theme.fonts.regular};
@@ -55,5 +55,5 @@ export const Separator = styled.View`
 `
 export const Footer = styled.View`
   width: 100%;
-  padding: 24px;
+  padding: ${RFValue(24)}px;
 `
