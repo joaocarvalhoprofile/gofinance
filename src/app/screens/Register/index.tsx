@@ -77,14 +77,22 @@ export function Register() {
       return Alert.alert("Selecione uma categoria")
     }
 
-    const data = {
+    const newData = {
       name: form.name,
       amount: form.amount,
       TransactionType,
       category: category.key
     }
     try {
-      await AsyncStorage.setItem(dataKey, JSON.stringify(data))
+      const data = await AsyncStorage.getItem(dataKey)
+      const currentData = data ? JSON.parse(data) : []
+
+      const saveData = [
+        ...currentData,
+        newData
+      ]
+
+      await AsyncStorage.setItem(dataKey, JSON.stringify(saveData))
 
     } catch (error) {
       console.log(error)
