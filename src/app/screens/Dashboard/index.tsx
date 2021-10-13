@@ -31,17 +31,37 @@ export interface DataListProps extends TransactionCardProps {
   id: string
 }
 
+interface HighlightProps {
+  total: string
+}
+interface HighlightData {
+  entries: HighlightProps
+  expensive: HighlightProps
+  balance: HighlightProps
+}
+
 export function Dashboard() {
   const [data, setData] = useState<DataListProps[]>([])
+  const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData)
 
   async function getAll() {
     const dataKey = '@gofinance:transactions'
     const response = await AsyncStorage.getItem(dataKey)
     const data = response ? JSON.parse(response) : []
-    console.log(data)
+
+    let entriesTotal = 0
+    let expensiveTotal = 0
+    let balance = 0
 
     const transactions: DataListProps[] = data
       .map((item: DataListProps) => {
+
+        if (item.type === 'positive') {
+          entriesTotal += Number(item.amount)
+        } else {
+          expensiveTotal += Number(item.amount)
+        }
+
         const amount = Number(item.amount)
           .toLocaleString('pt-BR', {
             style: 'currency',
@@ -64,7 +84,29 @@ export function Dashboard() {
         }
       })
 
+    balance = entriesTotal - expensiveTotal
+
     setData(transactions)
+    setHighlightData({
+      entries: {
+        total: entriesTotal.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        })
+      },
+      expensive: {
+        total: expensiveTotal.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }),
+      },
+      balance: {
+        total: balance.toLocaleString('pt-BR', {
+          style: 'currency',
+          currency: 'BRL'
+        }),
+      }
+    })
   }
 
   useEffect(() => {
@@ -101,19 +143,19 @@ export function Dashboard() {
         <HighLightCard
           type="up"
           title="Entradas"
-          amount="R$ 17.400,00"
+          amount={highlightData?.entries?.total}
           lastTransaction="Última entrada dia 30 de Setembro"
         />
         <HighLightCard
           type="down"
           title="Saídas"
-          amount="R$ 7.000,00"
+          amount={highlightData?.expensive?.total}
           lastTransaction="Última saída dia 30 de Setembro"
         />
         <HighLightCard
           type="total"
           title="Total"
-          amount="R$ 10.400,00"
+          amount={highlightData?.balance?.total}
           lastTransaction="Total em 30 de Setembro"
         />
       </HighLightCards>
