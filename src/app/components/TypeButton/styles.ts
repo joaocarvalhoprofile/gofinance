@@ -5,7 +5,7 @@ import { Feather } from '@expo/vector-icons'
 import { RectButton } from 'react-native-gesture-handler'
 
 interface TypeButtonProps {
-  type: 'up' | 'down'
+  type: 'positive' | 'negative'
   isActive: boolean
 }
 
@@ -24,10 +24,10 @@ export const Container = styled(RectButton) <TypeButtonProps>`
 
   padding: 16px;
 
-  ${({ type, isActive }) => isActive && type === 'up' && css`
+  ${({ type, isActive }) => isActive && type === 'positive' && css`
     background-color: ${({ theme }) => theme.colors.success_light}
   `}
-  ${({ type, isActive }) => isActive && type === 'down' && css`
+  ${({ type, isActive }) => isActive && type === 'negative' && css`
     background-color: ${({ theme }) => theme.colors.attention_light}
   `}
 `
@@ -37,7 +37,7 @@ export const Icon = styled(Feather) <TypeButtonProps>`
   margin-right: ${RFValue(12)}px;
 
   color: ${({ theme, type }) =>
-    type === 'up' ? theme.colors.success : theme.colors.attention};
+    type === 'positive' ? theme.colors.success : theme.colors.attention};
 `
 
 export const Title = styled.Text`
