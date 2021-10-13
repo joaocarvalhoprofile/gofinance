@@ -29,12 +29,12 @@ import {
 } from './styles'
 
 interface FormData {
-  name: string
+  title: string
   amount: string
 }
 
 const schema = Yup.object().shape({
-  name: Yup.string().required('Informe uma descrição'),
+  title: Yup.string().required('Informe uma descrição'),
   amount: Yup
     .number()
     .positive('Informe um valor positivo')
@@ -61,8 +61,6 @@ export function Register() {
     resolver: yupResolver(schema)
   })
 
-  const dataKey = '@gofinance:transactions'
-
   function handleTransactionTypeSelect(type: 'up' | 'down') {
     SetTransactionType(type)
   }
@@ -82,9 +80,11 @@ export function Register() {
       return Alert.alert("Selecione uma categoria")
     }
 
+    const dataKey = '@gofinance:transactions'
+
     const newData = {
       id: String(uuid.v4()),
-      name: form.name,
+      title: form.title,
       amount: form.amount,
       TransactionType,
       category: category.key,
@@ -116,15 +116,6 @@ export function Register() {
     }
   }
 
-  useEffect(() => {
-    async function getTransaction() {
-      const data = await AsyncStorage.getItem(dataKey)
-      console.log(JSON.parse(data!))
-    }
-
-    getTransaction()
-  }, [])
-
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container>
@@ -135,7 +126,7 @@ export function Register() {
         <Form>
           <Fields>
             <InputForm
-              name="name"
+              name="title"
               control={control}
               placeholder="Descrição"
               autoFocus={true}

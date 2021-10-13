@@ -1,4 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 import {
   Container,
@@ -29,41 +31,45 @@ export interface DataListProps extends TransactionCardProps {
 }
 
 export function Dashboard() {
-  const data: DataListProps[] = [
-    {
-      id: "1",
-      type: "positive",
-      title: "Consultoria de serviços",
-      amount: "R$ 15.000,00",
-      category: {
-        name: 'Vendas de Serviços',
-        icon: 'dollar-sign'
-      },
-      date: "30/09/2021"
-    },
-    {
-      id: "2",
-      type: "negative",
-      title: "Carnes e Verduras",
-      amount: "R$ 1.000,00",
-      category: {
-        name: "Supermercado",
-        icon: "coffee"
-      },
-      date: "02/10/2021"
-    },
-    {
-      id: "3",
-      type: "negative",
-      title: "Aluguel",
-      amount: "R$ 950,00",
-      category: {
-        name: 'Moradia',
-        icon: 'shopping-bag'
-      },
-      date: "15/09/2021"
-    }
-  ]
+  const [data, setData] = useState<DataListProps[]>([])
+
+  async function getAll() {
+    const dataKey = '@gofinance:transactions'
+    // await AsyncStorage.removeItem(dataKey)
+    const response = await AsyncStorage.getItem(dataKey)
+    const data = response ? JSON.parse(response) : []
+    console.log(data)
+
+    const transactions: DataListProps[] = data
+      .map((item: DataListProps) => {
+        const amount = Number(item.amount)
+          .toLocaleString('pt-BR', {
+            style: 'currency',
+            currency: 'BRL'
+          })
+
+        const date = Intl.DateTimeFormat('pt-BR', {
+          day: '2-digit',
+          month: '2-digit',
+          year: '2-digit'
+        }).format(new Date(item.date))
+
+        return {
+          id: item.id,
+          title: item.title,
+          amount,
+          type: item.type,
+          category: item.category,
+          date
+        }
+      })
+
+    setData(transactions)
+  }
+
+  useEffect(() => {
+    getAll()
+  }, [])
 
   return (
     <Container>
