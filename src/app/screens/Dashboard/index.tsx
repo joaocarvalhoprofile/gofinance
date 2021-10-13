@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useFocusEffect } from '@react-navigation/native'
 
 import {
   Container,
@@ -35,7 +36,6 @@ export function Dashboard() {
 
   async function getAll() {
     const dataKey = '@gofinance:transactions'
-    // await AsyncStorage.removeItem(dataKey)
     const response = await AsyncStorage.getItem(dataKey)
     const data = response ? JSON.parse(response) : []
     console.log(data)
@@ -70,6 +70,10 @@ export function Dashboard() {
   useEffect(() => {
     getAll()
   }, [])
+
+  useFocusEffect(useCallback(() => {
+    getAll()
+  }, []))
 
   return (
     <Container>
